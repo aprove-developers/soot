@@ -3264,6 +3264,7 @@ public class Options extends OptionsBase {
                 +"all-reachable "
                 +"implicit-entry "
                 +"trim-clinit "
+                +"ignore-library-clinit "
                 +"reflection-log "
                 +"guards "
                 +"types-for-invoke ";
@@ -3897,6 +3898,7 @@ public class Options extends OptionsBase {
               +"all-reachable:false "
               +"implicit-entry:true "
               +"trim-clinit:true "
+              +"ignore-library-clinit:true "
               +"guards:ignore "
               +"types-for-invoke:false ";
     
