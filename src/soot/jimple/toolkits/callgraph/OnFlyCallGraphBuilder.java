@@ -888,7 +888,9 @@ public final class OnFlyCallGraphBuilder {
 	}
 
 	private void addEdge(SootMethod src, Stmt stmt, SootMethod tgt, Kind kind) {
-		cicg.addEdge(new Edge(src, stmt, tgt, kind));
+		if (!options.ignore_library_clinit() || tgt.getDeclaringClass().isApplicationClass() || !kind.isClinit()) {
+			cicg.addEdge(new Edge(src, stmt, tgt, kind));
+		}
 	}
 
 	private void addEdge(SootMethod src, Stmt stmt, SootClass cls, NumberedString methodSubSig, Kind kind) {

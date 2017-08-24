@@ -2296,6 +2296,7 @@ public class Options extends OptionsBase {
                 +padOpt( "all-reachable (false)", "Assume all methods of application classes are reachable." )
                 +padOpt( "implicit-entry (true)", "Include methods called implicitly by the VM as entry points" )
                 +padOpt( "trim-clinit (true)", "Removes redundant static initializer calls" )
+                +padOpt( "ignore-library-clinit (false)", "Removes static initializer calls to library classes" )
                 +padOpt( "reflection-log", "Uses a reflection log to resolve reflective calls." )
                 +padOpt( "guards (ignore)", "Describes how to guard the program from unsound assumptions." )
                 +padOpt( "types-for-invoke (false)", "Uses reaching types inferred by the pointer analysis to resolve reflective calls." );
