@@ -142,6 +142,11 @@ public class CGOptions
         return soot.PhaseOptions.getBoolean( options, "trim-clinit" );
     }
     
+    /** Ignore Static Initializers of Library Classes */
+    public boolean ignore_library_clinit() {
+        return soot.PhaseOptions.getBoolean( options, "ignore-library-clinit" );
+    }
+    
     /** Types for invoke --
     
      * Uses reaching types inferred by the pointer analysis to resolve 
