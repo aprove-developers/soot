@@ -32,6 +32,7 @@ import java.util.ArrayDeque;
 import java.util.Collection;
 import java.util.Deque;
 import java.util.Iterator;
+import java.util.List;
 
 import soot.JastAddJ.BytecodeParser;
 import soot.JastAddJ.CompilationUnit;
@@ -70,6 +71,7 @@ public class SootResolver {
 
 			program.initBytecodeReader(new BytecodeParser());
 			program.initJavaParser(new JavaParser() {
+				@Override
 				public CompilationUnit parse(InputStream is, String fileName)
 						throws IOException, beaver.Parser.Exception {
 					return new JastAddJavaParser().parse(is, fileName);
@@ -107,9 +109,6 @@ public class SootResolver {
 	 * SootClass.
 	 */
 	public SootClass makeClassRef(String className) {
-		// If this class name is escaped, we need to un-escape it
-		className = Scene.v().unescapeName(className);
-
 		if (Scene.v().containsClass(className))
 			return Scene.v().getSootClass(className);
 
@@ -229,7 +228,8 @@ public class SootResolver {
 					throw new SootClassNotFoundException(
 							"couldn't find class: " + className + " (is your soot-class-path set properly?)" + suffix);
 				} else {
-					//G.v().out.println("Warning: " + className + " is a phantom class!");
+					// G.v().out.println("Warning: " + className + " is a
+					// phantom class!");
 					sc.setPhantomClass();
 				}
 			} else {
@@ -281,8 +281,11 @@ public class SootResolver {
 			for (Type ptype : m.getParameterTypes()) {
 				addToResolveWorklist(ptype, SootClass.HIERARCHY);
 			}
-			for (SootClass exception : m.getExceptions()) {
-				addToResolveWorklist(exception, SootClass.HIERARCHY);
+			List<SootClass> exceptions = m.getExceptionsUnsafe();
+			if (exceptions != null) {
+				for (SootClass exception : exceptions) {
+					addToResolveWorklist(exception, SootClass.HIERARCHY);
+				}
 			}
 		}
 
