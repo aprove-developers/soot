@@ -472,74 +472,12 @@ public class Util {
 		return types[types.length - 1];
 	}
 
-	private final ArrayList<Type> conversionTypes = new ArrayList<Type>();
 
-	/*
-	 * private Map cache = new HashMap(); public Type[]
-	 * jimpleTypesOfFieldOrMethodDescriptor(String descriptor) { Type[] ret =
-	 * (Type[]) cache.get(descriptor); if( ret != null ) return ret;
-	 * conversionTypes.clear();
-	 * 
-	 * while(descriptor.length() != 0) { boolean isArray = false; int
-	 * numDimensions = 0; Type baseType;
-	 * 
-	 * // Skip parenthesis if(descriptor.startsWith("(") ||
-	 * descriptor.startsWith(")")) { descriptor = descriptor.substring(1);
-	 * continue; }
-	 * 
-	 * // Handle array case while(descriptor.startsWith("[")) { isArray = true;
-	 * numDimensions++; descriptor = descriptor.substring(1); }
-	 * 
-	 * // Determine base type if(descriptor.startsWith("B")) { baseType =
-	 * ByteType.v(); descriptor = descriptor.substring(1); } else
-	 * if(descriptor.startsWith("C")) { baseType = CharType.v(); descriptor =
-	 * descriptor.substring(1); } else if(descriptor.startsWith("D")) { baseType
-	 * = DoubleType.v(); descriptor = descriptor.substring(1); } else
-	 * if(descriptor.startsWith("F")) { baseType = FloatType.v(); descriptor =
-	 * descriptor.substring(1); } else if(descriptor.startsWith("I")) { baseType
-	 * = IntType.v(); descriptor = descriptor.substring(1); } else
-	 * if(descriptor.startsWith("J")) { baseType = LongType.v(); descriptor =
-	 * descriptor.substring(1); } else if(descriptor.startsWith("L")) { int
-	 * index = descriptor.indexOf(';');
-	 * 
-	 * if(index == -1) throw new
-	 * RuntimeException("Class reference has no ending ;");
-	 * 
-	 * String className = descriptor.substring(1, index);
-	 * 
-	 * baseType = RefType.v(className.replace('/', '.'));
-	 * 
-	 * descriptor = descriptor.substring(index + 1); } else
-	 * if(descriptor.startsWith("S")) { baseType = ShortType.v(); descriptor =
-	 * descriptor.substring(1); } else if(descriptor.startsWith("Z")) { baseType
-	 * = BooleanType.v(); descriptor = descriptor.substring(1); } else
-	 * if(descriptor.startsWith("V")) { baseType = VoidType.v(); descriptor =
-	 * descriptor.substring(1); } else throw new
-	 * RuntimeException("Unknown field type!");
-	 * 
-	 * Type t;
-	 * 
-	 * // Determine type if(isArray) t = ArrayType.v(baseType, numDimensions);
-	 * else t = baseType;
-	 * 
-	 * conversionTypes.add(t); }
-	 * 
-	 * ret = (Type[]) conversionTypes.toArray(new Type[0]);
-	 * cache.put(descriptor, ret); return ret; }
-	 */
-
-	private final Map<String, Type[]> cache = new HashMap<String, Type[]>();
-
-	public Type[] jimpleTypesOfFieldOrMethodDescriptor(String descriptor) {
-		Type[] ret = null;
-		synchronized (cache) {
-			ret = cache.get(descriptor);
-		}
-		if (ret != null)
-			return ret;
-		char[] d = descriptor.toCharArray();
-		int p = 0;
-		List<Type> conversionTypes = new ArrayList<Type>();
+    public Type[] jimpleTypesOfFieldOrMethodDescriptor(String descriptor)
+    {
+        char[] d = descriptor.toCharArray();
+        int p = 0;
+        ArrayList<Type> conversionTypes = new ArrayList<Type>();
 
 		outer: while (p < d.length) {
 			boolean isArray = false;
@@ -625,11 +563,7 @@ public class Util {
 			conversionTypes.add(t);
 		}
 
-		ret = conversionTypes.toArray(new Type[0]);
-		synchronized (cache) {
-			cache.put(descriptor, ret);
-		}
-		return ret;
+		return conversionTypes.toArray(new Type[0]);
 	}
 
 	public Type jimpleTypeOfFieldDescriptor(String descriptor) {

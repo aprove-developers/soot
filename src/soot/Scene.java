@@ -668,7 +668,8 @@ public class Scene // extends AbstractHost
 	 * @param c
 	 *            The class to add
 	 */
-	public void addClass(SootClass c) {
+    public synchronized void addClass(SootClass c) 
+    {
 		addClassSilent(c);
 		c.setLibraryClass();
 		modifyHierarchy();
@@ -719,7 +720,8 @@ public class Scene // extends AbstractHost
 		modifyHierarchy();
 	}
 
-	public boolean containsClass(String className) {
+    public synchronized boolean containsClass(String className)
+    {
 		RefType type = nameToClass.get(className);
 		if (type == null)
 			return false;
@@ -729,7 +731,8 @@ public class Scene // extends AbstractHost
 		return c.isInScene();
 	}
 
-	public boolean containsType(String className) {
+    public synchronized boolean containsType(String className)
+    {
 		return nameToClass.containsKey(className);
 	}
 
@@ -924,8 +927,9 @@ public class Scene // extends AbstractHost
 	 * Returns the RefType with the given className. Returns null if no type
 	 * with the given name can be found.
 	 */
-	public RefType getRefTypeUnsafe(String className) {
-		RefType refType = nameToClass.get(className);
+    public synchronized RefType getRefTypeUnsafe(String className) 
+    {
+        RefType refType = nameToClass.get(unescapeName(className));
 		return refType;
 	}
 
@@ -939,7 +943,8 @@ public class Scene // extends AbstractHost
 	/**
 	 * Returns the RefType with the given className.
 	 */
-	public void addRefType(RefType type) {
+    public synchronized void addRefType(RefType type) 
+    {
 		nameToClass.put(type.getClassName(), type);
 	}
 
@@ -951,7 +956,7 @@ public class Scene // extends AbstractHost
 	 *            The name of the class to get
 	 * @return The class if it exists, otherwise null
 	 */
-	public SootClass getSootClassUnsafe(String className) {
+	public synchronized SootClass getSootClassUnsafe(String className) {
 		RefType type = nameToClass.get(className);
 		if (type != null) {
 			SootClass tsc = type.getSootClass();
