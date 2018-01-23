@@ -60,6 +60,16 @@ public class CGOptions
         return soot.PhaseOptions.getBoolean( options, "safe-forname" );
     }
     
+    /** ignore-library-clinit --
+    
+     * Removes static initializer calls to library classes..
+    
+     * Removes static initializer calls to library classes.
+     */
+    public boolean ignore_library_clinit() {
+        return soot.PhaseOptions.getBoolean( options, "ignore-library-clinit" );
+    }
+    
     /** Safe newInstance --
     
      * Handle Class.newInstance() calls conservatively.
@@ -140,11 +150,6 @@ public class CGOptions
      */
     public boolean trim_clinit() {
         return soot.PhaseOptions.getBoolean( options, "trim-clinit" );
-    }
-    
-    /** Ignore Static Initializers of Library Classes */
-    public boolean ignore_library_clinit() {
-        return soot.PhaseOptions.getBoolean( options, "ignore-library-clinit" );
     }
     
     /** Types for invoke --

@@ -1136,6 +1136,11 @@ packages in the Java runtime.</p>
 <br>
 </td><td colspan="2">Disables the release of method bodies after writeout. This flag is used internally.</td>
 </tr>
+<tr>
+<td><tt>-ignore-library-clinit </tt>
+<br>
+</td><td colspan="2">Removes static initializer calls to library classes.</td>
+</tr>
 </table>
 <h1>
 <a name="phaseOptions">PHASES AND PHASE OPTIONS</a>
@@ -2126,6 +2131,12 @@ When this option is set to false, any calls to Class.forName() for which
 the class cannot be determined statically are assumed to call no
 static initializers.
 </p>
+</li>
+<li>
+<b>ignore-library-clinit</b> (ignore-library-clinit)
+		<br>
+			(default value: <span class="value">false</span>)
+		<p>Removes static initializer calls to library classes.</p>
 </li>
 <li>
 <b>Safe newInstance</b> (safe-newinstance)

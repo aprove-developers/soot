@@ -2107,6 +2107,13 @@ static initializers.
 </long_desc>
                                 </boolopt>
                                 <boolopt>
+	                          <name>ignore-library-clinit</name>
+	                          <alias>ignore-library-clinit</alias>
+                                  <default>false</default>
+	                          <short_desc>Removes static initializer calls to library classes.</short_desc>
+	                          <long_desc>Removes static initializer calls to library classes.</long_desc>
+	                        </boolopt>
+                                <boolopt>
                                         <name>Safe newInstance</name>
                                         <alias>safe-newinstance</alias>
                                         <default>false</default>
@@ -6817,6 +6824,13 @@ the reports of times required for transformations.
 			<long_desc>
 By default soot releases the method bodies of all reachable classes after the final writeout. This option deactivates this behaviour. This flag should not affect end users at all.
 </long_desc>
-		</boolopt>
+	</boolopt>
+        <boolopt>
+	  <name>ignore-library-clinit</name>
+	  <alias>ignore-library-clinit</alias>
+          <default>false</default>
+	  <short_desc>Removes static initializer calls to library classes.</short_desc>
+	  <long_desc>Removes static initializer calls to library classes.</long_desc>
+	</boolopt>
 	</section>
 </options>

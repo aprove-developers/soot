@@ -1437,6 +1437,11 @@ public class Options extends OptionsBase {
             )
                 no_writeout_body_releasing = true;
     	
+            else if( false 
+            || option.equals( "ignore-library-clinit" )
+            )
+                ignore_library_clinit = true;
+    	
             else {
                 G.v().out.println( "Invalid option -"+option );
                 return false;
@@ -1793,6 +1798,10 @@ public class Options extends OptionsBase {
     private boolean no_writeout_body_releasing = false;
     public void set_no_writeout_body_releasing( boolean setting ) { no_writeout_body_releasing = setting; }
   
+    public boolean ignore_library_clinit() { return ignore_library_clinit; }
+    private boolean ignore_library_clinit = false;
+    public void set_ignore_library_clinit( boolean setting ) { ignore_library_clinit = setting; }
+  
 
     public String getUsage() {
         return ""
@@ -1939,7 +1948,8 @@ public class Options extends OptionsBase {
       
 +padOpt(" -time", "Report time required for transformations" )
 +padOpt(" -subtract-gc", "Subtract gc from time" )
-+padOpt(" -no-writeout-body-releasing", "Disables the release of method bodies after writeout. This flag is used internally." );
++padOpt(" -no-writeout-body-releasing", "Disables the release of method bodies after writeout. This flag is used internally." )
++padOpt(" -ignore-library-clinit", "Removes static initializer calls to library classes." );
     }
 
 
@@ -2283,6 +2293,7 @@ public class Options extends OptionsBase {
                 +"\n\nRecognized options (with default values):\n"
                 +padOpt( "enabled (true)", "" )
                 +padOpt( "safe-forname (false)", "Handle Class.forName() calls conservatively" )
+                +padOpt( "ignore-library-clinit (false)", "Removes static initializer calls to library classes." )
                 +padOpt( "safe-newinstance (false)", "Handle Class.newInstance() calls conservatively" )
                 +padOpt( "library", " 										Specifies whether the target classes should be treated as an application or a library. 									" )
                 +padVal( "disabled (default)", " 											Call(and pointer assignment) graph construction treat the target classes as application starting from the entry points. 										" )
@@ -2296,7 +2307,6 @@ public class Options extends OptionsBase {
                 +padOpt( "all-reachable (false)", "Assume all methods of application classes are reachable." )
                 +padOpt( "implicit-entry (true)", "Include methods called implicitly by the VM as entry points" )
                 +padOpt( "trim-clinit (true)", "Removes redundant static initializer calls" )
-                +padOpt( "ignore-library-clinit (false)", "Removes static initializer calls to library classes" )
                 +padOpt( "reflection-log", "Uses a reflection log to resolve reflective calls." )
                 +padOpt( "guards (ignore)", "Describes how to guard the program from unsound assumptions." )
                 +padOpt( "types-for-invoke (false)", "Uses reaching types inferred by the pointer analysis to resolve reflective calls." );
@@ -3267,6 +3277,7 @@ public class Options extends OptionsBase {
             return ""
                 +"enabled "
                 +"safe-forname "
+                +"ignore-library-clinit "
                 +"safe-newinstance "
                 +"library "
                 +"verbose "
@@ -3274,7 +3285,6 @@ public class Options extends OptionsBase {
                 +"all-reachable "
                 +"implicit-entry "
                 +"trim-clinit "
-                +"ignore-library-clinit "
                 +"reflection-log "
                 +"guards "
                 +"types-for-invoke ";
@@ -3901,6 +3911,7 @@ public class Options extends OptionsBase {
             return ""
               +"enabled:true "
               +"safe-forname:false "
+              +"ignore-library-clinit:false "
               +"safe-newinstance:false "
               +"library:disabled "
               +"verbose:false "
@@ -3908,7 +3919,6 @@ public class Options extends OptionsBase {
               +"all-reachable:false "
               +"implicit-entry:true "
               +"trim-clinit:true "
-              +"ignore-library-clinit:true "
               +"guards:ignore "
               +"types-for-invoke:false ";
     

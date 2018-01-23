@@ -748,6 +748,9 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 		addToEnableGroup("cg", getcgsafe_forname_widget(), "safe-forname");
 		
 		
+		addToEnableGroup("cg", getcgignore_library_clinit_widget(), "ignore-library-clinit");
+		
+		
 		addToEnableGroup("cg", getcgsafe_newinstance_widget(), "safe-newinstance");
 		
 		
@@ -775,6 +778,8 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 		getcgenabled_widget().getButton().addSelectionListener(this);
 		
 		getcgsafe_forname_widget().getButton().addSelectionListener(this);
+		
+		getcgignore_library_clinit_widget().getButton().addSelectionListener(this);
 		
 		getcgsafe_newinstance_widget().getButton().addSelectionListener(this);
 		
@@ -3142,6 +3147,16 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 
 		if (boolRes != defBoolRes) {
 			getConfig().put(getcgsafe_forname_widget().getAlias(), new Boolean(boolRes));
+		}
+		
+		boolRes = getcgignore_library_clinit_widget().getButton().getSelection();
+		
+		
+		defBoolRes = false;
+		
+
+		if (boolRes != defBoolRes) {
+			getConfig().put(getcgignore_library_clinit_widget().getAlias(), new Boolean(boolRes));
 		}
 		
 		boolRes = getcgsafe_newinstance_widget().getButton().getSelection();
@@ -5651,6 +5666,16 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 			getConfig().put(getMiscellaneous_Optionsno_writeout_body_releasing_widget().getAlias(), new Boolean(boolRes));
 		}
 		
+		boolRes = getMiscellaneous_Optionsignore_library_clinit_widget().getButton().getSelection();
+		
+		
+		defBoolRes = false;
+		
+
+		if (boolRes != defBoolRes) {
+			getConfig().put(getMiscellaneous_Optionsignore_library_clinit_widget().getAlias(), new Boolean(boolRes));
+		}
+		
 		
 		setSootMainClass(getSootMainClassWidget().getText().getText());			
 		return setSootMainProject(getSootMainProjectWidget().getText().getText());
@@ -8057,6 +8082,16 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 	
 	public BooleanOptionWidget getcgsafe_forname_widget() {
 		return cgsafe_forname_widget;
+	}	
+	
+	private BooleanOptionWidget cgignore_library_clinit_widget;
+	
+	private void setcgignore_library_clinit_widget(BooleanOptionWidget widget) {
+		cgignore_library_clinit_widget = widget;
+	}
+	
+	public BooleanOptionWidget getcgignore_library_clinit_widget() {
+		return cgignore_library_clinit_widget;
 	}	
 	
 	private BooleanOptionWidget cgsafe_newinstance_widget;
@@ -10673,6 +10708,16 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 	
 	public BooleanOptionWidget getMiscellaneous_Optionsno_writeout_body_releasing_widget() {
 		return Miscellaneous_Optionsno_writeout_body_releasing_widget;
+	}	
+	
+	private BooleanOptionWidget Miscellaneous_Optionsignore_library_clinit_widget;
+	
+	private void setMiscellaneous_Optionsignore_library_clinit_widget(BooleanOptionWidget widget) {
+		Miscellaneous_Optionsignore_library_clinit_widget = widget;
+	}
+	
+	public BooleanOptionWidget getMiscellaneous_Optionsignore_library_clinit_widget() {
+		return Miscellaneous_Optionsignore_library_clinit_widget;
 	}	
 	
 
@@ -13976,6 +14021,22 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 		}
 
 		setcgsafe_forname_widget(new BooleanOptionWidget(editGroupcg, SWT.NONE, new OptionData("Safe forName", "p", "cg","safe-forname", "\nWhen a program calls Class.forName(), the named class is \nresolved, and its static initializer executed. In many cases, it \ncannot be determined statically which class will be loaded, and \nwhich static initializer executed. When this option is set to \ntrue, Soot will conservatively assume that any static \ninitializer could be executed. This may make the call graph very \nlarge. When this option is set to false, any calls to \nClass.forName() for which the class cannot be determined \nstatically are assumed to call no static initializers. ", defaultBool)));
+		
+		
+		
+		defKey = "p"+" "+"cg"+" "+"ignore-library-clinit";
+		defKey = defKey.trim();
+
+		if (isInDefList(defKey)) {
+			defaultBool = getBoolDef(defKey);	
+		}
+		else {
+			
+			defaultBool = false;
+			
+		}
+
+		setcgignore_library_clinit_widget(new BooleanOptionWidget(editGroupcg, SWT.NONE, new OptionData("ignore-library-clinit", "p", "cg","ignore-library-clinit", "\nRemoves static initializer calls to library classes.", defaultBool)));
 		
 		
 		
@@ -21473,6 +21534,22 @@ Composite dbdb_force_recompileChild = dbdb_force_recompileCreate(getPageContaine
 		}
 
 		setMiscellaneous_Optionsno_writeout_body_releasing_widget(new BooleanOptionWidget(editGroupMiscellaneous_Options, SWT.NONE, new OptionData("No body releasing after writeout", "", "","no-writeout-body-releasing", "\nBy default soot releases the method bodies of all reachable \nclasses after the final writeout. This option deactivates this \nbehaviour. This flag should not affect end users at all. ", defaultBool)));
+		
+		
+		
+		defKey = ""+" "+""+" "+"ignore-library-clinit";
+		defKey = defKey.trim();
+
+		if (isInDefList(defKey)) {
+			defaultBool = getBoolDef(defKey);	
+		}
+		else {
+			
+			defaultBool = false;
+			
+		}
+
+		setMiscellaneous_Optionsignore_library_clinit_widget(new BooleanOptionWidget(editGroupMiscellaneous_Options, SWT.NONE, new OptionData("ignore-library-clinit", "", "","ignore-library-clinit", "\nRemoves static initializer calls to library classes.", defaultBool)));
 		
 		
 

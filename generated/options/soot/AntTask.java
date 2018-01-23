@@ -624,6 +624,10 @@ public class AntTask extends MatchingTask {
             if(arg) addArg("-no-writeout-body-releasing");
         }
   
+        public void setignore_library_clinit(boolean arg) {
+            if(arg) addArg("-ignore-library-clinit");
+        }
+  
         public Object createp_jb() {
             Object ret = new PhaseOptjb();
             phaseopts.add(ret);
@@ -1265,6 +1269,12 @@ public class AntTask extends MatchingTask {
             addArg("-p");
             addArg("cg");
             addArg("safe-forname:"+(arg?"true":"false"));
+          }
+      
+          public void setignore_library_clinit(boolean arg) {
+            addArg("-p");
+            addArg("cg");
+            addArg("ignore-library-clinit:"+(arg?"true":"false"));
           }
       
           public void setsafe_newinstance(boolean arg) {
